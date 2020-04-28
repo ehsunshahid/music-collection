@@ -46,7 +46,7 @@ db.serialize(() => {
 
       // // Adding songs
       // dummyData.songs.forEach(song => {
-      //   db.run(`INSERT INTO songs VALUES('${song.id}', '${song.playlistId}', "${song.title}")`, (err) => {
+      //   db.run(`INSERT INTO songs VALUES('${song.id}', '${song.title}', "${song.playlistId}")`, (err) => {
       //     if(err) {
       //       console.log('err: ', err);
       //     } else {
