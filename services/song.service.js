@@ -2,7 +2,7 @@ const db = require('../db');
 
 const getAllSongs = async () => {
   return new Promise((resolve, reject) => {
-    db.songs(`SELECT * FROM songs`, (err, songs) => {
+    db.all(`SELECT * FROM songs`, (err, songs) => {
       if (err) {
         reject(err); 
       } else {
@@ -77,7 +77,7 @@ const updateSong = async (id, title = null) => {
 
 const getSongsByPlaylistId = async (playlistId) => {
   return new Promise((resolve, reject) => {
-    db.all(`SELECT * from songs WHERE account_id = ${playlistId}`, (err, songs) => {
+    db.all(`SELECT * from songs WHERE playlist_id = ${playlistId}`, (err, songs) => {
       if (err) {
         reject(err);
       }

@@ -1,4 +1,5 @@
 const playlistService = require('../services/playlist.service');
+const songService = require('../services/song.service');
 
 const getAllPlaylists = async (req, res) => {
   const playlists = await playlistService.getAllPlaylists();
@@ -29,6 +30,12 @@ const updatePlaylist = async (req, res) => {
 
   const playlist = await playlistService.updatePlaylist(id, newTitle);
   res.status(200).send({ playlist });
+};
+
+const getSongsByPlaylistId = async (req, res) => {
+  const id = req.params.id;
+  const songs = await songService.getSongsByPlaylistId(id);
+  res.status(200).send({ songs });
 }
 
 module.exports = {
@@ -37,4 +44,5 @@ module.exports = {
   updatePlaylist,
   deletePlaylist,
   createPlaylist,
+  getSongsByPlaylistId,
 }

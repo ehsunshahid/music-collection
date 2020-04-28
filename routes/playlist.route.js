@@ -7,6 +7,7 @@ router.get('/:id', playlistController.getPlaylistById);
 router.post('/', playlistController.createPlaylist);
 router.put('/:id', playlistController.updatePlaylist);
 router.delete('/:id', playlistController.deletePlaylist);
+router.get('/:id/songs', playlistController.getSongsByPlaylistId);
 
 
 module.exports = router;
