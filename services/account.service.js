@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const db = require('../db');
 
 const getAllAccounts = async () => {
@@ -38,8 +39,10 @@ const getAccountByUsername = async (username) => {
 };
 
 const createAccount = async (username, password) => {
-  return new Promise((resolve, reject) => {
-    db.run(`INSERT INTO accounts (username, password) VALUES('${username}', '${password}')`, (err) => {
+  return new Promise(async (resolve, reject) => {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    db.run(`INSERT INTO accounts (username, password) VALUES('${username}', '${hashedPassword}')`, (err) => {
       if (err) {
         reject(err);
       }
