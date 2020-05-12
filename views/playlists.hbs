@@ -1,0 +1,27 @@
+<h2>Playlists</h2>
+
+<div class="container">
+  <div class="row">
+    <table class="table table-bordered">
+      <thead>
+        <th>Playlist Id</th>
+        <th>Playlist Title</th>
+        <th>Public/Private</th>
+        <th></th>
+      </thead>
+      <tbody>
+        {{#each playlists}}
+        <tr>
+          <td>{{this.id}}</td>
+          <td>{{this.title}}</td>
+          {{!-- {{#if this.is_public == "true"}} --}}
+          <td>Public</td>
+          {{!-- {{#else}}
+          <td>Private</td> --}}
+          <td><a href="songs-page/{{this.id}}"><button>Show Songs</button></a></td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

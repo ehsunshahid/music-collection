@@ -54,7 +54,7 @@
   text-decoration: none;
 }
 .form .register-form {
-  display: block;
+  display: none;
 }
 .container {
   position: relative;
@@ -102,31 +102,31 @@ body {
 </style>
 <div class="login-page">
   <div class="form">
-    <h2><b>Register</b></h2>
-    <form class="register-form">
+    <h2><b>Login</b></h2>
+    <form class="login-form">
       <input type="text" placeholder="username" id="username"/>
       <input type="password" placeholder="password" id="password"/>
-      <button id="register-button">create</button>
-      <p class="message">Already registered? <a href="/login">Sign In</a></p>
+      <button id="login-button">login</button>
+      <p class="message">Not registered? <a href="/register">Create an account</a></p>
     </form>
   </div>
 </div>
 
 <script>
-  $("#register-button").click(() => {
+  $("#login-button").click(() => {
     const username = $('#username').val();
     const password = $('#password').val();
     console.log('username: ', username);
     $.ajax({
-      url: '/register',
+      url: '/login',
       type: 'POST',
       data: {
         username,
         password,
       }
     }).then(res => {
-      console.log('account created successfully');
-      window.location.href = '/login';
+      console.log('account login successfully');
+      window.location.href = '/';
     }).catch(err => {
       console.log('in error', err);
     });

@@ -1,0 +1,22 @@
+<h2>Songs</h2>
+
+<div class="container">
+  <div class="row">
+    <table class="table table-bordered">
+      <thead>
+        <th>Song Id</th>
+        <th>Song Title</th>
+        <th></th>
+      </thead>
+      <tbody>
+        {{#each songs}}
+        <tr>
+          <td>{{this.id}}</td>
+          <td>{{this.title}}</td>
+          {{!-- <td><a href="songs-page/{{this.id}}"><button>Show Songs</button></a></td> --}}
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

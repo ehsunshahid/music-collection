@@ -39,14 +39,14 @@ const getAccountByUsername = async (username) => {
 };
 
 const createAccount = async (username, password) => {
-  return new Promise(async (resolve, reject) => {
+  return await new Promise(async (resolve, reject) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     db.run(`INSERT INTO accounts (username, password) VALUES('${username}', '${hashedPassword}')`, (err) => {
       if (err) {
         reject(err);
       }
-      resolve();
+      resolve(null);
     })
   })
 };

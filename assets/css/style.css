@@ -1,5 +1,4 @@
-<style>
-  @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .login-page {
   width: 360px;
@@ -54,7 +53,7 @@
   text-decoration: none;
 }
 .form .register-form {
-  display: block;
+  display: none;
 }
 .container {
   position: relative;
@@ -99,38 +98,3 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }
-</style>
-<div class="login-page">
-  <div class="form">
-    <h2><b>Register</b></h2>
-    <form class="register-form">
-      <input type="text" placeholder="username" id="username"/>
-      <input type="password" placeholder="password" id="password"/>
-      <button id="register-button">create</button>
-      <p class="message">Already registered? <a href="/login">Sign In</a></p>
-    </form>
-  </div>
-</div>
-
-<script>
-  $("#register-button").click(() => {
-    const username = $('#username').val();
-    const password = $('#password').val();
-    console.log('username: ', username);
-    $.ajax({
-      url: '/register',
-      type: 'POST',
-      data: {
-        username,
-        password,
-      }
-    }).then(res => {
-      console.log('account created successfully');
-      window.location.href = '/login';
-    }).catch(err => {
-      console.log('in error', err);
-    });
-    return false;
-  });
-  
-</script>

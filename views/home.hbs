@@ -1,3 +1,26 @@
 <h1>Home</h1>
-<p>This is the home page</p>
-<p>something comes here: {{{ehsun}}}</p>
+<div class="container">
+  <div class="row">
+    <h2>Public Playlists</h2>
+    <div class="container">
+      <div class="row">
+        <table class="table table-bordered">
+          <thead>
+            <th>Playlist Id</th>
+            <th>Playlist Title</th>
+            <th></th>
+          </thead>
+          <tbody>
+            {{#each publicPlaylists}}
+            <tr>
+              <td>{{this.id}}</td>
+              <td>{{this.title}}</td>
+              <td><a href="songs-page-public/{{this.id}}"><button>Show Songs</button></a></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
