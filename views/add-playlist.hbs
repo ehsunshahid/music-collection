@@ -1,0 +1,17 @@
+<h2>Playlists</h2>
+
+<h2>Add Song</h2>
+
+<div class="container">
+  <div class="row">
+    <form id="my-form" action="/create-playlist" method="POST">
+      Title: <input type="text" placeholder="Enter title here" id="title" name="title" value="">
+      <br/>
+      Public: <input type="checkbox" id="public" name="isPublic">
+      <br/>
+      {{!-- <input type="submit" value="Submit"> --}}
+      <button id="add-playlist-button">Add Playlist</button>
+    </form>
+  </div>
+</div>
+

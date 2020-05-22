@@ -2,6 +2,18 @@ const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, req.body.title)
+  }
+})
+ 
+const upload = multer({ storage: storage })
+
 // const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 8080;
@@ -16,6 +28,8 @@ const songService = require('./services/song.service');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
+// app.use(express.static('uploads'));
+app.use(express.static('uploads'));
 app.use(session({ saveUninitialized: false, resave: false, secret: "some-random-text" }));
 // app.use(cookieParser());
 app.engine('hbs', expressHandlebars({ defaultLayout: 'main.hbs', }));
@@ -50,6 +64,7 @@ app.get('/playlists-page', async (req, res) => {
 });
 app.get('/songs-page/:playlistId', async (req, res) => {
   const playlistId = req.params.playlistId;
+  req.session.playlistId = playlistId;
   const songs = await songService.getSongsByPlaylistId(playlistId);
   res.render('songs.hbs', { songs });
 })
@@ -57,6 +72,47 @@ app.get('/songs-page-public/:playlistId', async (req, res) => {
   const playlistId = req.params.playlistId;
   const songs = await songService.getSongsByPlaylistId(playlistId);
   res.render('songs-public.hbs', { songs });
+});
+app.get('/add-song', (req, res) => {
+  res.render('add-song.hbs');
+});
+app.post('/upload-song', upload.single('song'), async (req, res) => {
+  console.log('req.session.accountId: ', req.session.accountId);
+  console.log('req.session.playlistId: ', req.session.playlistId);
+  console.log("req.body: ", req.body);
+
+  const newSong = await songService.createSong(req.body.title, req.session.playlistId);
+  const songs = await songService.getSongsByPlaylistId(req.session.playlistId);
+  res.render('songs.hbs', { songs });
+
+});
+
+app.get('/add-playlist', (req, res) => {
+  if (req.session.accountId) {
+    res.render('add-playlist.hbs');
+  } else {
+    res.render('login.hbs');
+  }
+});
+
+app.post('/create-playlist', async (req, res) => {
+  console.log('req.body: ', req.body);
+  console.log(req.session.accountId);
+  let isPublic = false;
+  if (req.body.isPublic) {
+    isPublic = true;
+  }
+  const newPlaylist = await playlistService.createPlaylist(req.body.title, req.session.accountId, isPublic);
+
+  const playlists = await playlistService.getPlaylistsByAccountId(req.session.accountId);
+  res.render('playlists.hbs', { playlists });
+
+});
+
+app.get('/logout', (req, res) => {
+  req.session.accountId = null;
+  req.session.playlistId = null;
+  res.render('home.hbs');
 })
 
 // Api routes

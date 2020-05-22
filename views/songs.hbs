@@ -1,5 +1,6 @@
 <h2>Songs</h2>
 
+<a href="/add-song"><button>Add song</button></a>
 <div class="container">
   <div class="row">
     <table class="table table-bordered">
@@ -13,6 +14,7 @@
         <tr>
           <td>{{this.id}}</td>
           <td>{{this.title}}</td>
+          <td><audio controls><source src="tiger.mp3" type="audio/mpeg"></audio></td>
           {{!-- <td><a href="songs-page/{{this.id}}"><button>Show Songs</button></a></td> --}}
         </tr>
         {{/each}}

@@ -38,7 +38,8 @@ const getPlaylistByTitle = async (title) => {
 
 const createPlaylist = async (title, accountId, isPublic) => {
   return new Promise((resolve, reject) => {
-    db.run(`INSERT INTO playlists (title, account_id, is_public) VALUES('${title}', '${accountId}', ${isPublic})`, (err) => {
+    let temp = isPublic ? 'true' : 'false';
+    db.run(`INSERT INTO playlists (title, account_id, is_public) VALUES('${title}', '${accountId}', ${temp})`, (err) => {
       if (err) {
         reject(err);
       }
@@ -90,7 +91,7 @@ const getPlaylistsByAccountId = async (accountId) => {
 
 const getAllPublicPlaylists = async () => {
   return new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM playlists WHERE is_public = 'true'`, (err, playlists) => {
+    db.all(`SELECT * FROM playlists WHERE is_public = 1`, (err, playlists) => {
       if (err) {
         reject(err); 
       } else {
